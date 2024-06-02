@@ -26,6 +26,8 @@ Based on this framework, the result of this successful collaboration consists of
 
 All three parts work seamlessly with each other and can be integrated into SBB's MATSim simulation environment. The code is well tested and documented, and several realistic large-scale instances were successfully tested and analyzed.
 
+![schedule](https://github.com/rolling-stock-scheduling/.github/assets/71029482/cb5cf8d6-88d2-462f-88f1-102bac0a409d)
+
 It is planned to use the railsim contribution to validate the feasibility of the calculated schedule solutions at an operational level with given infrastructure.
 
 #### Getting Started
