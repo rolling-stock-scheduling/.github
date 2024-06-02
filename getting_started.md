@@ -1,4 +1,4 @@
-# RSSched HowTo
+# RSSched Getting Started
 
 In the following you will find a step by step instruction how to use the RSSched algorithm.
 
@@ -31,7 +31,7 @@ First we produce an input file for the solver from a MATSim run output.
    
    TODO: Alternativ können wir auch das .jar zum git hinzufügen.
 
-3. copy you MATSim run output into the `rssched/matsim_run` directory. As an example you can use the public available `kelheim-v3.0-25pct` instance:
+3. copy you MATSim simulation run output into the `rssched/matsim_run` directory. As an example you can use the publicly available `kelheim-v3.0-25pct` instance from [https://github.com/matsim-scenarios/matsim-kelheim](https://github.com/matsim-scenarios/matsim-kelheim):
    
    ```bash
    cd ~/rssched
