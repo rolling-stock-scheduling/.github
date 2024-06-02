@@ -1,7 +1,5 @@
 ## Rolling Stock Scheduling (RSSched)
 
-![schedule](https://github.com/rolling-stock-scheduling/.github/assets/71029482/cb5cf8d6-88d2-462f-88f1-102bac0a409d)
-
 How will Switzerland’s mobility landscape look in 20 to 30 years? Undoubtedly, train service will continue to play a central role, but perhaps entirely new types of trains will operate on the Swiss rail network. Certainly, sophisticated optimization algorithms will ensure that future schedules are used as efficiently as possible by minimizing costs and emissions while satisfying the rising passenger demand.
 
 To explore these questions, the Swiss Federal Railways (SBB) collaborated with the [Institute of Operations Research](https://math.ethz.ch/ifor) (ETH Zürich) on a year-long research project to design highly efficient algorithms for optimizing rolling stock schedules. The key objectives of this project are to minimize the number of rolling stock vehicles for a given passenger demand and to minimize the total travel distance of deadhead trips (trips without passengers) while satisfying several constraints, such as maintenance regulations.
@@ -27,6 +25,8 @@ Based on this framework, the result of this successful collaboration consists of
 All three parts work seamlessly with each other and can be integrated into SBB's MATSim simulation environment. The code is well tested and documented, and several realistic large-scale instances were successfully tested and analyzed.
 
 It is planned to use the railsim contribution to validate the feasibility of the calculated schedule solutions at an operational level with given infrastructure.
+
+![schedule](https://github.com/rolling-stock-scheduling/.github/assets/71029482/cb5cf8d6-88d2-462f-88f1-102bac0a409d)
 
 #### Getting Started
 
