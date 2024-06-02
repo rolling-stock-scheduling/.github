@@ -10,13 +10,15 @@ Based on this framework, the result of this successful collaboration consists of
 
 1) [Rolling Stock Scheduling Optimization Algorithm (or "Solver")](https://github.com/rolling-stock-scheduling/rssched-solver) – This multi-layered algorithm, developed by ETH, is written in Rust to achieve the highest performance. An input instance, provided via a predefined interface, consists of location data, including travel times and distances for deadhead trips, routes and departures, depots with capacities, fleet type information, and maintenance slots and regulations. Powered by classical algorithms (e.g., network-simplex to solve a batch of min-cost-circulation problems) and newly developed local-search-based meta-heuristics, this solver produces a rolling stock schedule that:
    
-   - Covers all service trips to meet passenger demand
+   - covers all service trips to meet passenger demand
    
-   - Meets maintenance regulations
+   - meets maintenance regulations
    
-   - Minimizes the number of train vehicles needed
+   - minimizes the number of train vehicles needed
    
-   - Minimizes the total distance traveled to reduce costs and emissions
+   - minimizes the total distance traveled to reduce costs and emissions
+  
+[This presentation](https://github.com/rolling-stock-scheduling/.github/blob/main/rolling_stock_scheduling_presentation.pdf) contains a good overview of the optimization algorithm.
 
 2) [MATSim Connector](https://github.com/rolling-stock-scheduling/rssched-matsim-client) – SBB developed this pipeline algorithms written in Java to connect the simulation environment and the Solver. For analyzing future mobility scenarios in Switzerland, SBB uses MATSim simulations to create a realistic passenger demand. The pipeline transforms the standard output files of a MATSim simulation run into an input instance for the solver. As the solver input is a macroscopic view, multiple aspects must be transformed in this preprocessing step.
 
