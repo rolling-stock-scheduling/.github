@@ -28,7 +28,7 @@ It is planned to use the railsim contribution to validate the feasibility of the
 
 #### Getting Started
 
-Follow [this step-by-step instruction](../getting_started.md)  to
+Follow [this step-by-step instruction](https://github.com/rolling-stock-scheduling/.github/blob/main/getting_started.md)  to
 
 1. create a solver-input file from your MATSim simulation run (or use the publicly available [matsim-kelheim](https://github.com/matsim-scenarios/matsim-kelheim) instance)
 
