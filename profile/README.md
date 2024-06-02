@@ -18,7 +18,7 @@ Based on this framework, the result of this successful collaboration consists of
    
    - minimizes the total distance traveled to reduce costs and emissions
   
-[This presentation](https://github.com/rolling-stock-scheduling/.github/blob/main/rolling_stock_scheduling_presentation.pdf) contains a good overview of the optimization algorithm.
+   [This presentation](https://github.com/rolling-stock-scheduling/.github/blob/main/rolling_stock_scheduling_presentation.pdf) contains a good overview of the optimization algorithm.
 
 2) [MATSim Connector](https://github.com/rolling-stock-scheduling/rssched-matsim-client) – SBB developed this pipeline algorithms written in Java to connect the simulation environment and the Solver. For analyzing future mobility scenarios in Switzerland, SBB uses MATSim simulations to create a realistic passenger demand. The pipeline transforms the standard output files of a MATSim simulation run into an input instance for the solver. As the solver input is a macroscopic view, multiple aspects must be transformed in this preprocessing step.
 
