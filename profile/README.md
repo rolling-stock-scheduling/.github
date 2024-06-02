@@ -18,6 +18,8 @@ Based on this framework, the result of this successful collaboration consists of
    
    - Minimizes the total distance traveled to reduce costs and emissions
 
+![local_search_modification](https://github.com/rolling-stock-scheduling/.github/assets/71029482/674fa98b-8e47-4629-be86-64fe6cc1dd9e)
+
 2) [MATSim Connector](https://github.com/rolling-stock-scheduling/rssched-matsim-client) – SBB developed this pipeline algorithms written in Java to connect the simulation environment and the Solver. For analyzing future mobility scenarios in Switzerland, SBB uses MATSim simulations to create a realistic passenger demand. The pipeline transforms the standard output files of a MATSim simulation run into an input instance for the solver. As the solver input is a macroscopic view, multiple aspects must be transformed in this preprocessing step.
 
 3) [Analysis and Visualization](https://github.com/rolling-stock-scheduling/rssched-analysis) – To analyze the output of the Solver, SBB developed a visualization tool written in Python. This tool not only allows for the analysis of a rolling stock schedule on an intuitive/visual basis but also provides a sequence of key performance indicators, such as the total deadhead trip distance, the load over the day, and vehicle utilization.
