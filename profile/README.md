@@ -28,7 +28,7 @@ All three parts work seamlessly with each other and can be integrated into SBB's
 
 It is planned to use the railsim contribution to validate the feasibility of the calculated schedule solutions at an operational level with given infrastructure.
 
-![schedule](https://github.com/rolling-stock-scheduling/.github/assets/71029482/cb5cf8d6-88d2-462f-88f1-102bac0a409d)
+![schedule](https://github.com/rolling-stock-scheduling/.github/assets/71029482/5b1d3e81-6e16-41eb-afa8-13fc35b49c14)
 
 #### Getting Started
 
