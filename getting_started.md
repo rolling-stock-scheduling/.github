@@ -9,69 +9,13 @@ mkdir rssched
 cd rssched
 ```
 
-## 1. MATSim-Client
-
-First we produce an input file for the solver from a MATSim run output.
-
-1. clone the `rssched-matsim-client` repository:
-   
-   ```bash
-   git clone git@github.com:rolling-stock-scheduling/rssched-matsim-client.git
-   cd rssched-matsim-client
-   ```
-
-2. compile the project with maven (and download it if needed):
-   
-   ```bash
-   chmod +x ./mvnw
-   ./mvnw install
-   ```
-   
-   This creates `target/rssched-matsim-client-0.2.0-SNAPSHOT.jar`.
-   
-   TODO: Alternativ können wir auch das .jar zum git hinzufügen.
-
-3. copy you MATSim simulation run output into the `rssched/matsim_run` directory. As an example you can use the publicly available `kelheim-v3.0-25pct` instance from [https://github.com/matsim-scenarios/matsim-kelheim](https://github.com/matsim-scenarios/matsim-kelheim):
-   
-   ```bash
-   cd ~/rssched
-   mkdir matsim_run
-   cd matsim_run
-   wget -r -np -nH --cut-dirs=10 https://svn.vsp.tu-berlin.de/repos/public-svn/matsim/scenarios/countries/de/kelheim/kelheim-v3.0/output/25pct/
-   cd ~/rssched/rssched-matsim-client
-   ```
-
-4. rename your MATSim output config file into `matsim_output_config.xml` and copy it to the `matsim_run` directory. You can also use our example instance:
-   
-   ```bash
-   cp integration-test/input/de/kelheim/kelheim-v3.0/25pct/kelheim-v3.0-25pct.output_config.xml ../matsim_run/matsim_output_config.xml 
-   ```
-
-5. create a solver input via the small `run.java` script.
-   
-   ```bash
-   java -cp .:target/rssched-matsim-client-0.2.0-SNAPSHOT.jar run.java
-   ```
-   
-   TODO: Hier bekommen ich den folgenden Fehler:
-   
-   ```
-   run.java:16: error: cannot access Scenario
-                .setFilterStrategy(scenario -> {
-                                   ^
-   class file for org.matsim.api.core.v01.Scenario not found
-   1 error
-   error: compilation failed
-   ```
-
-## 2. Solver
+## 1. Start Solver-Server
 
 Next, we start the solver-server and send the generated solver-input to obtain a rolling stock schedule.
 
 1. clone the `rssched-solver` repository into the `rssched` directory:  
    
    ```bash
-   cd ~/rssched
    git clone git@github.com:rolling-stock-scheduling/rssched-solver.git
    cd rssched-solver
    ```
@@ -83,8 +27,6 @@ Next, we start the solver-server and send the generated solver-input to obtain a
    ```bash
    docker build --tag eth_scheduling_image .
    ```
-   
-   TODO: Anstelle können wir auch das image direkt bereitstellen.
 
 4. loading the image and running the server for the first time (removes old container of the same name):
    
@@ -94,20 +36,43 @@ Next, we start the solver-server and send the generated solver-input to obtain a
    
    the server can use 16 threads and answers on port 3000.
 
-5. open a second terminal and use `curl` to send a POST request to the server containing the `solver-input.json` and creating an `schedule.json`:
+## 2. Run MATSim-Client
+
+We can generate a solver-request from a MATSim run output and send it to the server.
+
+1. open a new terminal, navigate to `rssched` and clone the `rssched-matsim-client` and the `rssched-solver` repository:
    
    ```bash
    cd ~/rssched
-   curl -X POST -H "Content-Type: application/json" -d @solver-input.json http://localhost:3000/solve > schedule.json
+   git clone git@github.com:rolling-stock-scheduling/rssched-matsim-client.git
+   cd rssched-matsim-client
    ```
-   
-   TODO: hier den richtigen Namen für den solver-input.json wählen.
 
-6. stopping the docker container:
+2. put your MATSim run output files together with config.xlsx (where the solver parameters are specified) into a directory and use the `src/main/java/ch/sbb/rssched/Application.java` to generate a solver-request and send it to the solver-server.
    
-   ```bash
-   docker stop eth_scheduling_server
-   ```
+   TODO insert the correct commands
+
+#### Kehlheim-Example-Instance
+
+Alternative to your own MATSim run you can use the integration test in `/src/test/java/ch/sbb/rssched/client/RsschedMatsimClientIT.java` to run the Kehlheim-example-instance. For this you can use maven by executing the `mvnw` binary file:
+
+```bash
+git checkout bugfix/move-integration-test
+chmod +x ./mvnw
+./mvnw verify -Dit.test=RsschedMatsimClientIT
+```
+
+   TODO: Remove checkout command as soon as bug fix is merged to main.
+
+   This will take a while, as some part of the instance are downloaded. As soon as the request is sent to the server you can observe the output of the solver within the server terminal.
+
+   The final output (rolling stock schedule) can be found at ```integration-test/output/de/kelheim/kelheim-v3.0/25pct/rssched_kelheim-v3.0-25pct/kelheim-v3.0-25pct.scheduler_response.json```
+
+For convenience lets copy the file to the `rssched` directory
+
+```bash
+cp integration-test/output/de/kelheim/kelheim-v3.0/25pct/rssched_kelheim-v3.0-25pct/kelheim-v3.0-25pct.scheduler_response.json ../schedule.json
+```
 
 ## 3. Analysis
 
@@ -134,3 +99,11 @@ Finally, we visualize the schedule for analysis.
    ```sh
    poetry run rssched-plot ../schedule.json
    ```
+
+## 4. Stopping the Server
+
+Stop the Docker-container running the solver-server via:
+
+```bash
+docker stop eth_scheduling_server
+```
