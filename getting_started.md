@@ -1,6 +1,6 @@
 # RSSched Getting Started
 
-In the following you will find a step-by-step-instruction how to use the RSSched algorithm.
+In the following you will find a step-by-step instruction how to use the RSSched programs.
 
 To keep your home clean create a project directory `rssched`.
 
