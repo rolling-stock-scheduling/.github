@@ -34,8 +34,8 @@ It is planned to use the railsim contribution to validate the feasibility of the
 
 Follow [this step-by-step instruction](https://github.com/rolling-stock-scheduling/.github/blob/main/getting_started.md)  to
 
-1. create a solver-input file from your MATSim simulation run (or use the publicly available [matsim-kelheim](https://github.com/matsim-scenarios/matsim-kelheim) instance)
+1. start the solver-server in a docker container
 
-2. execute the solver to produce a schedule
+2. use a MATSim run output (for example the publicly available [matsim-kelheim](https://github.com/matsim-scenarios/matsim-kelheim) instance) to produce a solver-request and send it to the solver-server to obtain a schedule as response
 
 3. visualize the schedule for analysis
