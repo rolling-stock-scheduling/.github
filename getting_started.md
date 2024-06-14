@@ -66,30 +66,30 @@ Next, we generate a solver-request from a MATSim run output and send it to the s
    
    into the directory that is specified next to the `matsimInputDirectory` field on the first page of `*.rssched_request_config.xlsx`.
    
-   As an example you can use the Kelheim instance that is located in `example_instance_kelheim/`.
+   As an example you can use the Kelheim instance that is located in `integration-test/input/de/kelheim/kelheim-v3.0/25pct/`.
    
    Since the `kelheim-v3.0-25pct.output_events.xml.gz` is too large for git use the following command to download them from the official repository or use this [link](https://svn.vsp.tu-berlin.de/repos/public-svn/matsim/scenarios/countries/de/kelheim/kelheim-v3.0/output/25pct/kelheim-v3.0-25pct.output_events.xml.gz) for a manual download.
    
    ```bash
    wget https://svn.vsp.tu-berlin.de/repos/public-svn/matsim/scenarios/countries/de/kelheim/kelheim-v3.0/output/25pct/kelheim-v3.0-25pct.output_events.xml.gz
-   mv kelheim-v3.0-25pct.output_events.xml.gz example_instance_kelheim/input/
+   mv kelheim-v3.0-25pct.output_events.xml.gz integration-test/input/de/kelheim/kelheim-v3.0/25pct/
    ```
 
 3. Build and run the `rssched-matsim-client` via `mvn` (you can use the maven-wrapper `.mvnw` if maven is not installed) to generate a solver-request and send it to the solver-server:
    
    ```bash
    ./mvnw clean install -DskipTests -DskipITs
-   ./mvnw exec:java -Dexec.args="example_instance_kelheim/input/kelheim-v3.0-25pct.rssched_request_config.xlsx"
+   ./mvnw exec:java -Dexec.args="integration-test/input/de/kelheim/kelheim-v3.0/25pct/kelheim-v3.0-25pct.rssched_request_config.xlsx"
    ```
    
    As soon as the request is sent to the server you can observe the output of the solver within the server terminal.
    
-   The final output (the rolling stock schedule) can be found at ```example_instance_kehlheim/output/rssched_kelheim-v3.0-25pct/it_config/kelheim-v3.0-25pct.scheduler_response.json``` or what ever path is specified next to the `outputDirectory` on the first page of `*.rssched_request_config.xlsx`.
+   The final output (the rolling stock schedule) can be found at ```integration-test/output/de/kelheim/kelheim-v3.0/25pct/rssched_kelheim-v3.0-25pct/it_config/it_config.kelheim-v3.0-25pct.scheduler_response.json``` or what ever path is specified next to the `outputDirectory` on the first page of `*.rssched_request_config.xlsx`.
    
    For convenience, lets copy the schedule file to the `rssched` directory:
    
    ```bash
-   cp example_instance_kelheim/output/rssched_kelheim-v3.0-25pct/it_config/it_config.kelheim-v3.0-25pct.scheduler_response.json ../schedule.json
+   cp integration-test/output/de/kelheim/kelheim-v3.0/25pct/rssched_kelheim-v3.0-25pct/it_config/it_config.kelheim-v3.0-25pct.scheduler_response.json ../schedule.json
    ```
 
 ## 3. Analysis
