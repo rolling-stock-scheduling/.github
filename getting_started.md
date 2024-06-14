@@ -40,7 +40,7 @@ Next, we start the solver-server and send the generated solver-input to obtain a
 
 We can generate a solver-request from a MATSim run output and send it to the server.
 
-1. open a new terminal, navigate to `rssched` and clone the `rssched-matsim-client` and the `rssched-solver` repository:
+1. Open a new terminal, navigate to `rssched` and clone the `rssched-matsim-client` and the `rssched-solver` repository:
    
    ```bash
    cd ~/rssched
@@ -48,37 +48,54 @@ We can generate a solver-request from a MATSim run output and send it to the ser
    cd rssched-matsim-client
    ```
 
-2. put your MATSim run output files together with config.xlsx (where the solver parameters are specified) into a directory and use the `src/main/java/ch/sbb/rssched/Application.java` to generate a solver-request and send it to the solver-server.
+2. Put your MATSim run output files, including
    
-   TODO insert the correct commands
+   - `*.output_config.xml`
+   
+   - `*.output_events.xml.gz`
+   
+   - `*.output_network.xml.gz`
+   
+   - `*.output_transitSchedule.xml.gz`
+   
+   - `*.output_transitVehicles.xml.gz`
+     
+     together with 
+   
+   - `*.rssched_request_config.xlsx` (where the solver parameters are specified) 
+   
+   into the directory that is specified next to the `matsimInputDirectory` field on the first page of `*.rssched_request_config.xlsx`.
+   
+   As an example you can use the Kelheim instance that is located in `example_instance_kelheim/`.
+   
+   Since the `events.xml.gz` is too large for git use the following command to download them from the official repository or use this [link](https://svn.vsp.tu-berlin.de/repos/public-svn/matsim/scenarios/countries/de/kelheim/kelheim-v3.0/output/25pct/kelheim-v3.0-25pct.output_events.xml.gz) for a manual download.
+   
+   ```bash
+   wget https://svn.vsp.tu-berlin.de/repos/public-svn/matsim/scenarios/countries/de/kelheim/kelheim-v3.0/output/25pct/kelheim-v3.0-25pct.output_events.xml.gz
+   mv kelheim-v3.0-25pct.output_events.xml.gz example_instance_kelheim/input/
+   ```
 
-#### Kehlheim-Example-Instance
-
-Alternative to your own MATSim run you can use the integration test in `/src/test/java/ch/sbb/rssched/client/RsschedMatsimClientIT.java` to run the Kehlheim-example-instance. For this you can use maven by executing the `mvnw` binary file:
-
-```bash
-git checkout bugfix/move-integration-test
-chmod +x ./mvnw
-./mvnw verify -Dit.test=RsschedMatsimClientIT
-```
-
-   TODO: Remove checkout command as soon as bug fix is merged to main.
-
-   This will take a while, as some part of the instance are downloaded. As soon as the request is sent to the server you can observe the output of the solver within the server terminal.
-
-   The final output (rolling stock schedule) can be found at ```integration-test/output/de/kelheim/kelheim-v3.0/25pct/rssched_kelheim-v3.0-25pct/kelheim-v3.0-25pct.scheduler_response.json```
-
-For convenience lets copy the file to the `rssched` directory
-
-```bash
-cp integration-test/output/de/kelheim/kelheim-v3.0/25pct/rssched_kelheim-v3.0-25pct/kelheim-v3.0-25pct.scheduler_response.json ../schedule.json
-```
+3. Run the `rssched-matsim-client` to generate a solver-request and send it to the solver-server:
+   
+   ```bash
+   ./mvnw exec:java -Dexec.args="example_instance_kehlheim/input/kelheim-v3.0-25pct.rssched_request_config.xlsx"
+   ```
+   
+   As soon as the request is sent to the server you can observe the output of the solver within the server terminal.
+   
+   The final output (the rolling stock schedule) can be found at ```example_instance_kehlheim/output/rssched_kelheim-v3.0-25pct/it_config/kelheim-v3.0-25pct.scheduler_response.json``` or what ever the path is specified next to the `outputDirectory` on the first page of `*.rssched_request_config.xlsx`.
+   
+   For convenience lets copy the file to the `rssched` directory
+   
+   ```bash
+   cp example_instance_kelheim/output/rssched_kelheim-v3.0-25pct/it_config/it_config.kelheim-v3.0-25pct.scheduler_response.json ../schedule.json
+   ```
 
 ## 3. Analysis
 
 Finally, we visualize the schedule for analysis.
 
-1. clone the `rssched-analysis` repository
+1. Clone the `rssched-analysis` repository:
    
    ```bash
    cd ~/rssched
@@ -86,24 +103,31 @@ Finally, we visualize the schedule for analysis.
    cd rssched-analysis
    ```
 
-2. install poetry a package manager for python: https://python-poetry.org/docs/
+2. Install poetry a package manager for python: https://python-poetry.org/docs/
 
-3. install the dependencies for this project via:
+3. Install the dependencies for this project via:
    
    ```bash
    poetry install
    ```
 
-4. create the plots (which will open automatically in a browser):
+4. Create the plots (which will open automatically in a browser):
    
    ```sh
    poetry run rssched-plot ../schedule.json
    ```
 
-## 4. Stopping the Server
+## 4. Clean Up
 
-Stop the Docker-container running the solver-server via:
+To stop the Docker-container running the solver-server use:
 
 ```bash
 docker stop eth_scheduling_server
+```
+
+For removing the rssched programs simple remove the `rssched` directory with
+
+```bash
+cd ~
+rm -r rssched
 ```
